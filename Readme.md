@@ -2,12 +2,12 @@
 
 Routes 
 
-GET /    => View all links
-GET /links/create    => Page create a link
-POST /links/create    => path to create a link
-GET /link/:shortlink => get Full url
-PUT /links/edit    => Page change a links short form 
-DELETE /links/delete/:shortlink    => delete a shortlink
+- GET /    => View all links
+- GET /links/create    => Page create a link
+- POST /links/create    => path to create a link
+- GET /link/:shortlink => get Full url
+- PUT /links/edit    => Page change a links short form 
+- DELETE /links/delete/:shortlink    => delete a shortlink
 
 
 ### Models 
