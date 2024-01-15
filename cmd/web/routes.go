@@ -15,5 +15,5 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodPut, "/link/edit", app.shortLinkEdit)
 	router.HandlerFunc(http.MethodDelete, "/link/delete/:shortlink", app.shortLinkDelete)
 
-	return router
+	return secureHeaders(app.requestLogging(router))
 }

@@ -1,0 +1,12 @@
+CREATE USER 'web'@'localhost';
+CREATE USER 'web'@'172.17.0.1';
+
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON snippetbox.* TO 'web'@'localhost'
+GRANT SELECT, INSERT, UPDATE, DELETE ON snippetbox.* TO 'web'@'172.17.0.1'
+
+CREATE TABLE snippets ( id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(100) NOT NULL, content TEXT NOT NULL, created DATETIME NOT N
+ULL, expires DATETIME NOT NULL );
+
+CREATE DATABASE snippetbox CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
