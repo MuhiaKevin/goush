@@ -1,15 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
+	"unicode/utf8"
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Goush shortenr service Home"))
+	w.Write([]byte(`{"message": "Goush Server"}`))
 }
 
 func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Goush create short link"))
+	w.Write([]byte(`{"message": "Goush Server"}`))
 }
 
 func (app *application) shortLink(w http.ResponseWriter, r *http.Request) {

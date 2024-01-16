@@ -33,7 +33,7 @@ func main() {
 		shortLinks: &models.ShortLinksModel{DB: db},
 	}
 
-	app.infoLog.Println("Starting server at port 4000")
+	app.infoLog.Println("Starting server at port http://localhost:4000")
 	app.errorLog.Fatal(http.ListenAndServe(":4000", app.routes()))
 }
 
