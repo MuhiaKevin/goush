@@ -9,6 +9,8 @@ import (
 func (app *application) routes() http.Handler {
 	router := httprouter.New()
 
+	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", http.FileServer(http.Dir("./ui/static/"))))
+
 	router.HandlerFunc(http.MethodGet, "/", app.home)
 	router.HandlerFunc(http.MethodPost, "/link/create", app.shortLinkCreate)
 	router.HandlerFunc(http.MethodGet, "/link/:shortlink", app.shortLink)

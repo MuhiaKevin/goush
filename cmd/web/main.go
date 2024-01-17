@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"goush/internal/models"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -11,9 +12,10 @@ import (
 )
 
 type application struct {
-	errorLog   *log.Logger
-	infoLog    *log.Logger
-	shortLinks *models.ShortLinksModel
+	errorLog      *log.Logger
+	infoLog       *log.Logger
+	shortLinks    *models.ShortLinksModel
+	templateCache map[string]*template.Template
 }
 
 const dsn = "web:pass@/goush?parseTime=true"
@@ -27,10 +29,16 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
+	templateCache, err := newTemplateCache()
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+
 	app := &application{
-		errorLog:   errorLog,
-		infoLog:    infoLog,
-		shortLinks: &models.ShortLinksModel{DB: db},
+		errorLog:      errorLog,
+		infoLog:       infoLog,
+		shortLinks:    &models.ShortLinksModel{DB: db},
+		templateCache: templateCache,
 	}
 
 	app.infoLog.Println("Starting server at port http://localhost:4000")

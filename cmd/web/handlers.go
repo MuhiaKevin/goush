@@ -1,13 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
-	"unicode/utf8"
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(`{"message": "Goush Server"}`))
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "home.tmpl", data)
 }
 
 func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) {
