@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -16,6 +17,7 @@ type application struct {
 	infoLog       *log.Logger
 	shortLinks    *models.ShortLinksModel
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }
 
 const dsn = "web:pass@/goush?parseTime=true"
@@ -34,11 +36,14 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
+	formDecoder := form.NewDecoder()
+
 	app := &application{
 		errorLog:      errorLog,
 		infoLog:       infoLog,
 		shortLinks:    &models.ShortLinksModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   formDecoder,
 	}
 
 	app.infoLog.Println("Starting server at port http://localhost:4000")

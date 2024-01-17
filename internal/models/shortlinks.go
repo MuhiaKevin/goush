@@ -20,7 +20,7 @@ type ShortLinksModel struct {
 }
 
 func (m *ShortLinksModel) Insert(originalUrl string) (int, error) {
-	shortUrl := "someRandomString" // generate random string
+	shortUrl := generateShortLink(originalUrl)
 
 	stmt := "INSERT INTO short_links (short_code, original_url, created ) VALUES (?,?, UTC_TIMESTAMP())"
 
