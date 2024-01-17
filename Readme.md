@@ -1,4 +1,7 @@
 # GOUSH (Golang url shortener)
+https://www.calhoun.io/updating-and-deleting-postgresql-records-using-gos-sql-package/
+https://www.sql-easy.com/learn/how-to-delete-a-row-in-sql/
+https://www.usegolang.com/
 
 Routes 
 

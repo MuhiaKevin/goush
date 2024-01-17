@@ -13,10 +13,9 @@ func (app *application) routes() http.Handler {
 
 	router.HandlerFunc(http.MethodGet, "/", app.home)
 	router.HandlerFunc(http.MethodPost, "/link/create", app.shortLinkCreate)
-	router.HandlerFunc(http.MethodGet, "/link/:shortlink", app.shortLink)
-	// router.HandlerFunc(http.MethodGet, "/link/view/:shortlink", app.shortLinkView)
+	router.HandlerFunc(http.MethodGet, "/link/:shortLink", app.shortLink)
 	router.HandlerFunc(http.MethodPut, "/link/edit", app.shortLinkEdit)
-	router.HandlerFunc(http.MethodDelete, "/link/delete/:shortlink", app.shortLinkDelete)
+	router.HandlerFunc(http.MethodDelete, "/link/delete/:shortLink", app.shortLinkDelete)
 
 	return secureHeaders(app.requestLogging(router))
 }
