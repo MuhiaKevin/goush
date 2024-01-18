@@ -1,12 +1,14 @@
 package main
 
 import (
+	"goush/internal/models"
 	"html/template"
 	"path/filepath"
 	"time"
 )
 
 type templateData struct {
+	ShortLinks  []*models.ShortLinks
 	CurrentYear int
 }
 

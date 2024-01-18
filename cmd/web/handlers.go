@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"goush/internal/models"
 	"goush/internal/validator"
 	"net/http"
@@ -39,17 +38,13 @@ func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) 
 	}
 
 	// get shortcode from the database after saving
-	shortCode, err := app.shortLinks.Insert(form.OriginalURL)
+	_, err = app.shortLinks.Insert(form.OriginalURL)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	w.Write([]byte(fmt.Sprintf("Go to http://localhost:4000/link/%s", shortCode)))
-}
-
-func (app *application) shortLinkView(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Goush get link"))
+	http.Redirect(w, r, "/link/show/links", http.StatusSeeOther)
 }
 
 func (app *application) shortLink(w http.ResponseWriter, r *http.Request) {
@@ -70,10 +65,6 @@ func (app *application) shortLink(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, shortLinks.OriginalURL, http.StatusSeeOther)
 }
 
-func (app *application) shortLinkEdit(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Goush edit short link"))
-}
-
 func (app *application) shortLinkDelete(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
@@ -90,4 +81,17 @@ func (app *application) shortLinkDelete(w http.ResponseWriter, r *http.Request) 
 	}
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func (app *application) shortLinkView(w http.ResponseWriter, r *http.Request) {
+	shortLinks, err := app.shortLinks.Latest()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	data := app.newTemplateData(r)
+	data.ShortLinks = shortLinks
+
+	app.render(w, http.StatusOK, "view.tmpl", data)
 }

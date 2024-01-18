@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type shortLinks struct {
+type ShortLinks struct {
 	ID          int
 	ShortCode   string
 	OriginalURL string
@@ -34,11 +34,11 @@ func (m *ShortLinksModel) Insert(originalUrl string) (string, error) {
 	return shortUrl, nil
 }
 
-func (m *ShortLinksModel) Get(shortCode string) (*shortLinks, error) {
+func (m *ShortLinksModel) Get(shortCode string) (*ShortLinks, error) {
 	stmt := `SELECT original_url FROM short_links WHERE short_code = ? `
 	row := m.DB.QueryRow(stmt, shortCode)
 
-	s := &shortLinks{}
+	s := &ShortLinks{}
 
 	err := row.Scan(&s.OriginalURL)
 
@@ -71,4 +71,31 @@ func (m *ShortLinksModel) Delete(shortCode string) error {
 	}
 
 	return nil
+}
+
+func (m *ShortLinksModel) Latest() ([]*ShortLinks, error) {
+	stmt := `SELECT id, short_code, original_url, created FROM short_links ORDER BY id DESC LIMIT 10`
+	rows, err := m.DB.Query(stmt)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	shortLinks := []*ShortLinks{}
+
+	for rows.Next() {
+		s := &ShortLinks{}
+
+		err = rows.Scan(&s.ID, &s.ShortCode, &s.OriginalURL, &s.Created)
+		if err != nil {
+			return nil, err
+		}
+
+		shortLinks = append(shortLinks, s)
+
+	}
+
+	return shortLinks, err
 }

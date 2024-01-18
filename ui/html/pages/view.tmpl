@@ -1,17 +1,24 @@
-{{define "title"}}Snippet #{{.Snippet.ID}}{{end}}
-
-{{define "main"}}
-    {{with .Snippet}}
-        <div class='snippet'>
-            <div class='metadata'>
-                <strong>{{.Title}}</strong>
-                <span>#{{.ID}}</span>
-            </div>
-            <pre><code>{{.Content}}</code></pre>
-            <div class='metadata'>
-                <time>Created: {{humanDate .Created}}</time>
-                <time>Expires: {{humanDate .Expires}}</time>
-            </div>
-        </div>
+{{define "title"}}View shortlinks{{end}}
+    {{define "main"}}
+    <h2>Latest Snippets</h2>
+    {{if .ShortLinks}}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Short Code</th>
+                <th>Original Url</th>
+                <th>Created</th>
+            </tr>
+            {{range .ShortLinks}}
+            <tr>
+                <td>#{{.ID}}</td>
+                <td><a href='/link/redirect/{{.ShortCode}}'>{{.ShortCode}}</a></td>
+                <td>{{.OriginalURL}}</td>
+                <td>{{humanDate .Created}}</td>
+            </tr>
+            {{end}}
+        </table>
+        {{else}}
+            <p>There's nothing to see here... yet!</p>
     {{end}}
 {{end}}
