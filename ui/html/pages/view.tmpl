@@ -1,6 +1,6 @@
 {{define "title"}}View shortlinks{{end}}
     {{define "main"}}
-    <h2>Latest Snippets</h2>
+    <h2>Your Links</h2>
     {{if .ShortLinks}}
         <table>
             <tr>
@@ -12,12 +12,12 @@
             {{range .ShortLinks}}
             <tr>
                 <td>#{{.ID}}</td>
-                <td><a href='/link/redirect/{{.ShortCode}}'>{{.ShortCode}}</a></td>
+                <td><a target=”_blank” href='/link/redirect/{{.ShortCode}}'>{{.ShortCode}}</a></td>
                 <td>{{.OriginalURL}}</td>
                 <td>{{humanDate .Created}}</td>
                 <td>
                     <form action='/link/delete/{{.ShortCode}}' method='POST'>
-                        <button>Delete</button>
+                        <input type="submit" value="Delete">
                     </form>
                 </td>
             </tr>
