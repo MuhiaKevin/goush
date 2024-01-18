@@ -80,7 +80,7 @@ func (app *application) shortLinkDelete(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/link/show/links", http.StatusSeeOther)
 }
 
 func (app *application) shortLinkView(w http.ResponseWriter, r *http.Request) {

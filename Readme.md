@@ -5,12 +5,11 @@ https://www.usegolang.com/
 
 Routes 
 
-- GET /    => View all links
-- GET /links/create    => Page create a link
-- POST /links/create    => path to create a link
-- GET /link/:shortlink => get Full url
-- PUT /links/edit    => Page change a links short form 
-- DELETE /links/delete/:shortlink    => delete a shortlink
+- [x] GET /   => View all links
+- [x] GET /links/create    => Page create a link
+- [x] POST /links/create    => path to create a link
+- [x] GET /link/:shortlink => get Full url
+- [x] DELETE /links/delete/:shortlink    => delete a shortlink
 
 
 ### Models 

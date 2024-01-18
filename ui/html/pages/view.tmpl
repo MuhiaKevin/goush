@@ -15,6 +15,11 @@
                 <td><a href='/link/redirect/{{.ShortCode}}'>{{.ShortCode}}</a></td>
                 <td>{{.OriginalURL}}</td>
                 <td>{{humanDate .Created}}</td>
+                <td>
+                    <form action='/link/delete/{{.ShortCode}}' method='POST'>
+                        <button>Delete</button>
+                    </form>
+                </td>
             </tr>
             {{end}}
         </table>
