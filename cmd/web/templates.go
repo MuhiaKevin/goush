@@ -9,6 +9,7 @@ import (
 
 type templateData struct {
 	ShortLinks  []*models.ShortLinks
+	Form        any
 	CurrentYear int
 }
 

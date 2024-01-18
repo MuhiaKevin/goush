@@ -1,9 +1,13 @@
 package validator
 
-import "strings"
+import (
+	"fmt"
+	"net/url"
+	"strings"
+)
 
 type Validator struct {
-   FieldErrors map[string]string 
+    FieldErrors map[string]string
 }
 
 
@@ -11,6 +15,9 @@ func (v *Validator) valid() bool  {
     return len(v.FieldErrors) == 0
 }
 
+func (v *Validator) Valid() bool {
+    return len(v.FieldErrors) == 0
+}
 
 func (v *Validator) AddFieldError(key, message string) {
      if v.FieldErrors == nil {
@@ -31,4 +38,17 @@ func (v *Validator) CheckField(ok bool, key, message string) {
 
 func NotBlank(value string) bool {
     return strings.TrimSpace(value) != ""
+}
+
+
+
+func IsURL(value string) bool {
+    _, err := url.ParseRequestURI(value)
+    fmt.Println(value)
+
+    if err != nil {
+        return false
+    }
+
+    return true
 }

@@ -1,4 +1,4 @@
-{{define "title"}}View shortlinks{{end}}
+{{define "title"}}View Short{{end}}
     {{define "main"}}
     <h2>Your Links</h2>
     {{if .ShortLinks}}
@@ -12,7 +12,7 @@
             {{range .ShortLinks}}
             <tr>
                 <td>#{{.ID}}</td>
-                <td><a target=”_blank” href='/link/redirect/{{.ShortCode}}'>{{.ShortCode}}</a></td>
+                <td><a target=”_blank” href='/link/redirect/{{.ShortCode}}'>localhost:4000/link/redirect/{{.ShortCode}}</a></td>
                 <td>{{.OriginalURL}}</td>
                 <td>{{humanDate .Created}}</td>
                 <td>

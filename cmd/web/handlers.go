@@ -17,6 +17,8 @@ type shortURLCreateForm struct {
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
+	data.Form = shortURLCreateForm{}
+
 	app.render(w, http.StatusOK, "home.tmpl", data)
 }
 
@@ -34,6 +36,16 @@ func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) 
 	err = app.formDecoder.Decode(&form, r.PostForm)
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	form.CheckField(validator.NotBlank(form.OriginalURL), "originalURL", "This field cannot be blank")
+	form.CheckField(validator.IsURL(form.OriginalURL), "originalURL", "This value is not a valid url")
+
+	if !form.Valid() {
+		data := app.newTemplateData(r)
+		data.Form = form
+		app.render(w, http.StatusUnprocessableEntity, "home.tmpl", data)
 		return
 	}
 
