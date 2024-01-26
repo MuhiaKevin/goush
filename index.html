@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .url-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        .shorten-button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .shortened-url {
+            margin-top: 20px;
+            color: #4caf50;
+            font-weight: bold;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>URL Shortener</h1>
+    <p>Enter your long URL below to get a shortened version:</p>
+    <form action="/link/create" method="post" id="form1">
+        <div id="formurl">
+            {{with .Form.FieldErrors.originalURL}}
+            <label class='error'>{{.}}</label>
+            {{end}}
+            <input type="url" class="url-input" placeholder="Enter your URL" id="urlInput" name="originalURL" placeholder="Enter the link here"required>
+            <button type="submit" form="form1" value="Submit" class="shorten-button">Shorten</button>
+                <!-- <input type="submit" value="Shorten URL"> -->
+        </div>
+    </form>
+</div>
+</body>
+</html>
+

@@ -8,7 +8,7 @@
                     {{with .Form.FieldErrors.originalURL}}
                         <label class='error'>{{.}}</label>
                     {{end}}
-                      <input type="text" name="originalURL" placeholder="Enter the link here">
+                      <input type="url" name="originalURL" placeholder="Enter the link here" required>
                       <div id="formbutton">
                          <input type="submit" value="Shorten URL">
                       </div>
