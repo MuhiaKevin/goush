@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/justinas/alice"
 )
 
 func (app *application) routes() http.Handler {
@@ -11,11 +12,15 @@ func (app *application) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", http.FileServer(http.Dir("./ui/static/"))))
 
-	router.HandlerFunc(http.MethodGet, "/", app.home)
-	router.HandlerFunc(http.MethodGet, "/link/redirect/:shortLink", app.shortLink)
-	router.HandlerFunc(http.MethodPost, "/link/create", app.shortLinkCreate)
-	router.HandlerFunc(http.MethodPost, "/link/delete/:shortLink", app.shortLinkDelete)
-	router.HandlerFunc(http.MethodGet, "/link/show/links", app.shortLinkView)
+	dynamic := alice.New(app.sessionManager.LoadAndSave)
 
-	return secureHeaders(app.requestLogging(router))
+	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
+	router.Handler(http.MethodGet, "/link/redirect/:shortLink", dynamic.ThenFunc(app.shortLink))
+	router.Handler(http.MethodPost, "/link/create", dynamic.ThenFunc(app.shortLinkCreate))
+	router.Handler(http.MethodPost, "/link/delete/:shortLink", dynamic.ThenFunc(app.shortLinkDelete))
+	router.Handler(http.MethodGet, "/link/show/links", dynamic.ThenFunc(app.shortLinkView))
+
+	standard := alice.New(app.requestLogging, secureHeaders)
+
+	return standard.Then(router)
 }

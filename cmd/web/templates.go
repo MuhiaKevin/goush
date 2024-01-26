@@ -11,6 +11,7 @@ type templateData struct {
 	ShortLinks  []*models.ShortLinks
 	Form        any
 	CurrentYear int
+	Flash       string
 }
 
 func humanDate(t time.Time) string {

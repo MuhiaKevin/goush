@@ -56,6 +56,8 @@ func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	app.sessionManager.Put(r.Context(), "flash", "Succsessfully created a url!")
+
 	http.Redirect(w, r, "/link/show/links", http.StatusSeeOther)
 }
 
@@ -91,6 +93,8 @@ func (app *application) shortLinkDelete(w http.ResponseWriter, r *http.Request) 
 		}
 		return
 	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Succsessfully deleted  short url!")
 
 	http.Redirect(w, r, "/link/show/links", http.StatusSeeOther)
 }
