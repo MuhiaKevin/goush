@@ -26,6 +26,10 @@ Short url {
 2. Users can create,retrieve and delete their own links
 3. Add admin panel to manage users
 
+### docker commands
+docker exec -it mysql  mysql -D goush -u root -p -> Login to mysql as root
+docker exec -it mysql  mysql -D goush -u web -p -> Login to mysql as web
+
 
 
 
