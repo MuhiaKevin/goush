@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"goush/internal/models"
 	"goush/internal/validator"
 	"net/http"
@@ -110,4 +111,24 @@ func (app *application) shortLinkView(w http.ResponseWriter, r *http.Request) {
 	data.ShortLinks = shortLinks
 
 	app.render(w, http.StatusOK, "view.tmpl", data)
+}
+
+func (app *application) userSignup(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "User signUp webpage")
+}
+
+func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "User signUp url endpoint")
+}
+
+func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "User login webpage")
+}
+
+func (app *application) userLoginPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "User login url endpoint")
+}
+
+func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "User logout url endpoint")
 }
