@@ -11,6 +11,13 @@ import (
 )
 
 // used to create nre user
+type userLoginForm struct {
+	Email               string `form:"email"`
+	Password            string `form:"password"`
+	validator.Validator `form:"-"`
+}
+
+// used to create nre user
 type userSignupForm struct {
 	Name                string `form:"name"`
 	Email               string `form:"email"`
@@ -187,7 +194,10 @@ func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "User login webpage")
+	data := app.newTemplateData(r)
+	data.Form = userLoginForm{}
+
+	app.render(w, http.StatusOK, "login.tmpl", data)
 }
 
 func (app *application) userLoginPost(w http.ResponseWriter, r *http.Request) {
