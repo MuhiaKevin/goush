@@ -19,6 +19,7 @@ type application struct {
 	errorLog       *log.Logger
 	infoLog        *log.Logger
 	shortLinks     *models.ShortLinksModel
+	users          *models.UserModel
 	templateCache  map[string]*template.Template
 	formDecoder    *form.Decoder
 	sessionManager *scs.SessionManager
@@ -50,6 +51,7 @@ func main() {
 		errorLog:       errorLog,
 		infoLog:        infoLog,
 		shortLinks:     &models.ShortLinksModel{DB: db},
+		users:          &models.UserModel{DB: db},
 		templateCache:  templateCache,
 		formDecoder:    formDecoder,
 		sessionManager: sessionManager,

@@ -3,13 +3,16 @@ package validator
 import (
 	"fmt"
 	"net/url"
+	"regexp"
 	"strings"
+	"unicode/utf8"
 )
+
+var EmailRX = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 
 type Validator struct {
     FieldErrors map[string]string
 }
-
 
 func (v *Validator) valid() bool  {
     return len(v.FieldErrors) == 0
@@ -35,12 +38,9 @@ func (v *Validator) CheckField(ok bool, key, message string) {
     }
 }
 
-
 func NotBlank(value string) bool {
     return strings.TrimSpace(value) != ""
 }
-
-
 
 func IsURL(value string) bool {
     _, err := url.ParseRequestURI(value)
@@ -51,4 +51,27 @@ func IsURL(value string) bool {
     }
 
     return true
+}
+
+func MaxChars(value string, n int) bool {
+    return utf8.RuneCountInString(value) <= n
+}
+
+func PermittedInt(value int, permittedValues ...int) bool {
+    for i := range permittedValues {
+        if value == permittedValues[i] {
+            return true
+        }
+    }
+    return false
+}
+
+// MinChars() returns true if a value contains at least n characters.
+func MinChars(value string, n int) bool {
+    return utf8.RuneCountInString(value) >= n
+}
+// Matches() returns true if a value matches a provided compiled regular
+// expression pattern.
+func Matches(value string, rx *regexp.Regexp) bool {
+    return rx.MatchString(value)
 }
