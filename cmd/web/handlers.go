@@ -33,7 +33,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) {
-	// will hold originalURL here
 	var form shortURLCreateForm
 
 	err := app.decodePostForm(r, &form)
@@ -160,7 +159,31 @@ func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintln(w, "Create a new user...")
+	err = app.users.Insert(form.Name, form.Email, form.Password)
+	// when creating a new user we might find that the user already exists
+	// we need to make sure that case is also investigated
+	if err != nil {
+		// check if error is the same as the ErrDuplicateEmail error
+		// if so set the error to be displayed in the form
+		if errors.Is(err, models.ErrDuplicateEmail) {
+			form.AddFieldError("email", "Email address is already in use")
+
+			data := app.newTemplateData(r)
+			data.Form = form
+			app.render(w, http.StatusUnprocessableEntity, "signup.tmpl", data)
+
+			// if the error is something else, for example erorr when generating the hashed password or when executing the sql statement
+			// then tell the client the problem is internal
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Your signup is succsessful. Please Login.")
+
+	// And redirect the user to the login page.
+	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 }
 
 func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
