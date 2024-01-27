@@ -23,7 +23,7 @@ func (v *Validator) Valid() bool {
     return len(v.FieldErrors) == 0
 }
 
-func (v *Validator) AddNonFieldErrors (message string) {
+func (v *Validator) AddNonFieldError (message string) {
     v.NonFieldErrors = append(v.NonFieldErrors, message)
 }
 
