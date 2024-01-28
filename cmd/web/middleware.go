@@ -20,3 +20,16 @@ func (app *application) requestLogging(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+func (app *application) requireAuthentication(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !app.isAuthenticated(r) {
+			http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+			return
+		}
+
+		// tell browser not to store pages that require authentication in the browser caache
+		w.Header().Add("Cache-Control", "no-store")
+
+		next.ServeHTTP(w, r)
+	})
+}
