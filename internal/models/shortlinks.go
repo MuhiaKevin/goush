@@ -75,9 +75,9 @@ func (m *ShortLinksModel) Delete(shortCode string) error {
 	return nil
 }
 
-func (m *ShortLinksModel) Latest() ([]*ShortLinks, error) {
-	stmt := `SELECT id, short_code, original_url, created FROM short_links ORDER BY id DESC LIMIT 10`
-	rows, err := m.DB.Query(stmt)
+func (m *ShortLinksModel) Latest(userID int) ([]*ShortLinks, error) {
+	stmt := `SELECT id, short_code, original_url, created FROM short_links WHERE user_id = ? ORDER BY id DESC LIMIT 10`
+	rows, err := m.DB.Query(stmt, userID)
 
 	if err != nil {
 		return nil, err

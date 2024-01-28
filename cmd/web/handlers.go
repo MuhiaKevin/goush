@@ -126,7 +126,10 @@ func (app *application) shortLinkDelete(w http.ResponseWriter, r *http.Request) 
 }
 
 func (app *application) shortLinkView(w http.ResponseWriter, r *http.Request) {
-	shortLinks, err := app.shortLinks.Latest()
+	userID := app.sessionManager.Get(r.Context(), "authenticatedUserID")
+	uID := userID.(int)
+
+	shortLinks, err := app.shortLinks.Latest(uID)
 	if err != nil {
 		app.serverError(w, err)
 		return
