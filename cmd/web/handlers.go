@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"goush/internal/models"
 	"goush/internal/validator"
 	"net/http"
@@ -254,5 +253,17 @@ func (app *application) userLoginPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "User logout url endpoint")
+	// change session token but keep session data
+	err := app.sessionManager.RenewToken(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	// remove authenticatedUserID from session data
+	app.sessionManager.Remove(r.Context(), "authenticatedUserID")
+	// change the flash message in the session data
+	app.sessionManager.Put(r.Context(), "flash", "You've been logged out")
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
