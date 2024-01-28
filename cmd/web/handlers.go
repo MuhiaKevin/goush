@@ -72,8 +72,11 @@ func (app *application) shortLinkCreatePost(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
+	userID := app.sessionManager.Get(r.Context(), "authenticatedUserID")
+	uID := userID.(int)
+
 	// get shortcode from the database after saving
-	_, err = app.shortLinks.Insert(form.OriginalURL)
+	_, err = app.shortLinks.Insert(form.OriginalURL, uID)
 	if err != nil {
 		app.serverError(w, err)
 		return

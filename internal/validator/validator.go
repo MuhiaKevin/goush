@@ -1,7 +1,6 @@
 package validator
 
 import (
-	"fmt"
 	"net/url"
 	"regexp"
 	"strings"
@@ -49,8 +48,6 @@ func NotBlank(value string) bool {
 
 func IsURL(value string) bool {
     _, err := url.ParseRequestURI(value)
-    fmt.Println(value)
-
     if err != nil {
         return false
     }
