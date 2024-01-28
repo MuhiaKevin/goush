@@ -38,7 +38,16 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	app.render(w, http.StatusOK, "home.tmpl", data)
 }
 
+
 func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	data.Form = shortURLCreateForm{}
+
+	app.render(w, http.StatusOK, "create.tmpl", data)
+}
+
+func (app *application) shortLinkCreatePost(w http.ResponseWriter, r *http.Request) {
 	var form shortURLCreateForm
 
 	err := app.decodePostForm(r, &form)
@@ -249,7 +258,7 @@ func (app *application) userLoginPost(w http.ResponseWriter, r *http.Request) {
 	// add authenticatedUserID to session data in the database
 	app.sessionManager.Put(r.Context(), "authenticatedUserID", id)
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/link/create", http.StatusSeeOther)
 }
 
 func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) {

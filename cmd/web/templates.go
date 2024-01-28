@@ -12,6 +12,7 @@ type templateData struct {
 	Form        any
 	CurrentYear int
 	Flash       string
+    IsAuthenticated bool
 }
 
 func humanDate(t time.Time) string {

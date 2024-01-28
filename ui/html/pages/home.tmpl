@@ -2,18 +2,7 @@
     {{define "main"}}
       <main>
          <section id="urlbox">
-            <h1>Paste the URL to be shortened</h1>
-            <form action="/link/create" method="post">
-               <div id="formurl">
-                    {{with .Form.FieldErrors.originalURL}}
-                        <label class='error'>{{.}}</label>
-                    {{end}}
-                      <input type="url" name="originalURL" placeholder="Enter the link here" required>
-                      <div id="formbutton">
-                         <input type="submit" value="Shorten URL">
-                      </div>
-               </div>
-            </form>
+            <h1>Goush Home page</h1>
          </section>
       </main>
 {{end}}
