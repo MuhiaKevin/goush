@@ -38,7 +38,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	app.render(w, http.StatusOK, "home.tmpl", data)
 }
 
-
 func (app *application) shortLinkCreate(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 

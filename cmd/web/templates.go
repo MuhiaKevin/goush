@@ -8,11 +8,11 @@ import (
 )
 
 type templateData struct {
-	ShortLinks  []*models.ShortLinks
-	Form        any
-	CurrentYear int
-	Flash       string
-    IsAuthenticated bool
+	ShortLinks      []*models.ShortLinks
+	Form            any
+	CurrentYear     int
+	Flash           string
+	IsAuthenticated bool
 }
 
 func humanDate(t time.Time) string {
