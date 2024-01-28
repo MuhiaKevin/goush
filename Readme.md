@@ -32,9 +32,9 @@ docker exec -it mysql  mysql -D goush -u web -p -> Login to mysql as web
 
 
 -- Table to store information about shortened URLs
-CREATE TABLE ShortenedURLs (
-    id INTEGER PRIMARY KEY,
-    short_code VARCHAR(10) NOT NULL,
+CREATE TABLE short_links (
+    id INTEGER NOT NULL PRIMARY KEY,
+    short_code VARCHAR(7) NOT NULL,
     original_url TEXT NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expiration_date TIMESTAMP,  -- You might add this if you want URLs to expire
