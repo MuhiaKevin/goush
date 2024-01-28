@@ -17,7 +17,6 @@ CREATE TABLE short_links (
 
 CREATE DATABASE goush CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-
 USE goush;
 CREATE TABLE users (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -27,12 +26,3 @@ CREATE TABLE users (
     created DATETIME NOT NULL
 );
 ALTER TABLE users ADD CONSTRAINT users_uc_email UNIQUE (email);
-
-
-CREATE TABLE student (
-  id INT PRIMARY KEY,
-  first_name VARCHAR(100) NOT NULL,
-  last_name VARCHAR(100) NOT NULL,
-  city_id INT,
-  FOREIGN KEY (city_id) REFERENCES city(id)
-);
