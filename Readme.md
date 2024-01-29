@@ -25,8 +25,8 @@ table short_url {
 
 
 ### docker commands
-docker exec -it mysql  mysql -D goush -u root -p -> Login to mysql as root
-docker exec -it mysql  mysql -D goush -u web -p -> Login to mysql as web
+- docker exec -it mysql  mysql -D goush -u root -p -> Login to mysql as root
+- docker exec -it mysql  mysql -D goush -u web -p -> Login to mysql as web
 
 
 
