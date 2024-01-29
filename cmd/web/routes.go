@@ -26,6 +26,7 @@ func (app *application) routes() http.Handler {
 	protected := dynamic.Append(app.requireAuthentication)
 
 	router.Handler(http.MethodGet, "/link/show/links", protected.ThenFunc(app.shortLinkView))
+	router.Handler(http.MethodPost, "/link/delete/:shortLink", protected.ThenFunc(app.shortLinkDelete))
 	router.Handler(http.MethodGet, "/link/create", protected.ThenFunc(app.shortLinkCreate))
 	router.Handler(http.MethodPost, "/link/create", protected.ThenFunc(app.shortLinkCreatePost))
 	router.Handler(http.MethodPost, "/user/logout", protected.ThenFunc(app.userLogoutPost))

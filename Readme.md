@@ -2,11 +2,15 @@
 
 Routes 
 
-- [x] GET /   => View all links
-- [x] GET /links/create    => Page create a link
-- [x] POST /links/create    => path to create a link
-- [x] GET /link/:shortlink => get Full url
-- [x] DELETE /links/delete/:shortlink    => delete a shortlink
+- [x] GET           /                             :  show home page
+- [x] GET           /links/create                 :  Page create a link
+- [x] POST          /links/create                 :  endpoint to create a link
+- [x] GET           /link/redirect/:shortlink     :  get long url
+- [x] DELETE        /links/delete/:short_links    :  delete a shortlink
+- [x] GET           /login                        :  show login page
+- [x] POST          /login                        :  authenticate user 
+- [x] GET           /signup                       :  get Signup page
+- [x] POST          /signup                       :  create user 
 
 
 ### Models 
