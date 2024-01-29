@@ -3,7 +3,6 @@ package models
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"time"
 )
 
@@ -22,13 +21,14 @@ type ShortLinksModel struct {
 }
 
 func (m *ShortLinksModel) Insert(originalUrl string, userID int) (string, error) {
-	shortUrl := generateShortLink(originalUrl)
-	fmt.Println("USER:ID   ", userID)
+	shortUrl, err := generateShortLink(originalUrl)
+	if err != nil {
+		return "", err
+	}
 
 	stmt := "INSERT INTO short_links (short_code,user_id,original_url, created ) VALUES (?,?,?, UTC_TIMESTAMP())"
 
-	_, err := m.DB.Exec(stmt, shortUrl, userID, originalUrl)
-
+	_, err = m.DB.Exec(stmt, shortUrl, userID, originalUrl)
 	if err != nil {
 		return "", err
 	}

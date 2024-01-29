@@ -5,17 +5,19 @@ import (
 	"fmt"
 	"math/big"
 	"math/rand"
-	"os"
 	"time"
 
 	"github.com/itchyny/base58-go"
 )
 
-func generateShortLink(initialLink string) string {
+func generateShortLink(initialLink string) (string, error) {
 	urlHashBytes := sha256Of(initialLink + randomStr(15))
 	generatedNumber := new(big.Int).SetBytes(urlHashBytes).Uint64()
-	finalString := base58Encoded([]byte(fmt.Sprintf("%d", generatedNumber)))
-	return finalString[:8]
+	finalString, err := base58Encoded([]byte(fmt.Sprintf("%d", generatedNumber)))
+	if err != nil {
+		return "", err
+	}
+	return finalString[:8], nil
 }
 
 func sha256Of(input string) []byte {
@@ -24,14 +26,13 @@ func sha256Of(input string) []byte {
 	return algorithm.Sum(nil)
 }
 
-func base58Encoded(bytes []byte) string {
+func base58Encoded(bytes []byte) (string, error) {
 	encoding := base58.BitcoinEncoding
 	encoded, err := encoding.Encode(bytes)
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		return "", err
 	}
-	return string(encoded)
+	return string(encoded), nil
 }
 
 const charset = "abcdefghijklmnopqrstuvwxyz" +
