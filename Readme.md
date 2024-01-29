@@ -11,7 +11,7 @@ Routes
 
 ### Models 
 
-Short url {
+table short_url {
     Title string,
     url string,
     shortlink,
@@ -19,9 +19,10 @@ Short url {
 }
 
 ### Future 
-1. Can create,retrieve and delete links
-2. Users can create,retrieve and delete their own links
-3. Add admin panel to manage users
+- [x] Can create,retrieve and delete links
+- [x] Users can create,retrieve and delete their own links
+- [ ] Add admin panel to manage users
+
 
 ### docker commands
 docker exec -it mysql  mysql -D goush -u root -p -> Login to mysql as root
@@ -101,3 +102,4 @@ You can customize the table structures based on your specific requirements. Addi
 - https://dev.to/frederik_vl/why-you-should-never-use-an-uuid-as-the-primary-key-in-sql-databases-147b
 - https://www.baeldung.com/uuid-vs-sequential-id-as-primary-key
 - https://medium.com/@selieshjksofficial/leveraging-uuids-as-primary-keys-in-your-applications-85efcd0163bb
+- https://learnsql.com/cookbook/how-to-create-a-table-with-a-foreign-key-in-sql/
