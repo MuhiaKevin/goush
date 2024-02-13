@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"goush/internal/models"
 	"html/template"
 	"log"
@@ -26,6 +27,7 @@ type application struct {
 }
 
 const dsn = "web:pass@/goush?parseTime=true"
+const port = 3000
 
 func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -57,8 +59,8 @@ func main() {
 		sessionManager: sessionManager,
 	}
 
-	app.infoLog.Println("Starting server at port http://localhost:4000")
-	app.errorLog.Fatal(http.ListenAndServe(":4000", app.routes()))
+	app.infoLog.Printf("Starting server at port http://localhost%s", fmt.Sprintf(":%d", port))
+	app.errorLog.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), app.routes()))
 }
 
 // connect to dabase

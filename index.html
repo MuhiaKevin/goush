@@ -55,21 +55,20 @@
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>URL Shortener</h1>
-    <p>Enter your long URL below to get a shortened version:</p>
-    <form action="/link/create" method="post" id="form1">
-        <div id="formurl">
-            {{with .Form.FieldErrors.originalURL}}
-            <label class='error'>{{.}}</label>
-            {{end}}
-            <input type="url" class="url-input" placeholder="Enter your URL" id="urlInput" name="originalURL" placeholder="Enter the link here"required>
-            <button type="submit" form="form1" value="Submit" class="shorten-button">Shorten</button>
-                <!-- <input type="submit" value="Shorten URL"> -->
-        </div>
-    </form>
-</div>
-</body>
+    <div class="container">
+        <h1>URL Shortener</h1>
+        <p>Enter your long URL below to get a shortened version:</p>
+        <form action="/link/create" method="post" id="form1">
+            <div id="formurl">
+                {{with .Form.FieldErrors.originalURL}}
+                <label class='error'>{{.}}</label>
+                {{end}}
+                <input type="url" class="url-input" placeholder="Enter your URL" id="urlInput" name="originalURL" placeholder="Enter the link here"required>
+                <button type="submit" form="form1" value="Submit" class="shorten-button">Shorten</button>
+                    <!-- <input type="submit" value="Shorten URL"> -->
+            </div>
+        </form>
+    </div>
+    </body>
 </html>
 

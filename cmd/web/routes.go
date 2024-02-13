@@ -10,10 +10,9 @@ import (
 func (app *application) routes() http.Handler {
 	router := httprouter.New()
 
-	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", http.FileServer(http.Dir("./ui/static/"))))
-
 	dynamic := alice.New(app.sessionManager.LoadAndSave)
 
+	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", http.FileServer(http.Dir("./ui/static/"))))
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 	router.Handler(http.MethodGet, "/link/redirect/:shortLink", dynamic.ThenFunc(app.shortLink))
 	router.Handler(http.MethodGet, "/user/signup", dynamic.ThenFunc(app.userSignup))

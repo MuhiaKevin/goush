@@ -26,6 +26,14 @@ table short_url {
 - [x] Can create,retrieve and delete links
 - [x] Users can create,retrieve and delete their own links
 - [ ] Add admin panel to manage users
+- [ ] Rewrite frontend in svelte or htmx or just improve the ui. Read up on it first
+- [ ] Use ouath for user creation and authentication. Read up on it first
+- [ ] Read up on use of qr codes 
+- [ ] Allow creation of custom urls
+- [ ] Database migrations
+- [ ] Write tests for the application
+- [ ] Use CI/CD 
+- [ ] Use pico css/ tailwind css 
 
 
 ### docker commands
@@ -107,3 +115,4 @@ You can customize the table structures based on your specific requirements. Addi
 - https://www.baeldung.com/uuid-vs-sequential-id-as-primary-key
 - https://medium.com/@selieshjksofficial/leveraging-uuids-as-primary-keys-in-your-applications-85efcd0163bb
 - https://learnsql.com/cookbook/how-to-create-a-table-with-a-foreign-key-in-sql/
+- https://www.quora.com/Why-can-I-not-delete-or-update-a-parent-row-A-foreign-key-constraint-fails
